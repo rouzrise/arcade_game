@@ -1,0 +1,21 @@
+body {
+    text-align: center;
+    position: relative;
+}
+.addRedColor {
+    background-color: rgba(255, 0, 0, .5);
+}
+
+.redCover {
+    width: 505px;
+    height: 536px;
+    background-color: rgba(255, 0, 0, .5);
+    position: absolute;
+    margin-top:68px;
+    display: none;
+}
+.active {
+    display: block;
+}
+
+
