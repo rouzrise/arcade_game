@@ -16,9 +16,10 @@ function randomInteger(min, max) {
     return rand;
   }
 //step - 101
-var xOptions = [1, 102, 203, 304, 405];
+var xOptions = [0, 101, 202, 303, 404];
 //step - 83
 var yOptions = [400, 317, 234, 151, 68, -15];
+var yOptionsForGems = [0, 0, 284, 201, 118, 0];
 
 
 ///TODO - Set generic class "Entity" so that Enemy, Player, future Gems could inherit from it
@@ -53,12 +54,7 @@ var Enemies = function () {
     this.preliminaryEnemiesArray = [];
 }
 
-
-
-
-
 Enemies.prototype.create = function (num) {
-   
 
     for(var i = 0; i < num; i++) {
         // debugger
@@ -69,7 +65,6 @@ Enemies.prototype.create = function (num) {
         this.preliminaryEnemiesArray[allEnemies.length] = new Enemy(speed, yOptions[position]);
        allEnemies.push(this.preliminaryEnemiesArray[allEnemies.length]);
       
-        
     }
 }
 
@@ -80,6 +75,19 @@ Enemies.prototype.reset = function() {
 var enemies = new Enemies();
 
 enemies.create(5);
+
+setInterval(function() {
+    
+        let k = randomInteger(1, 4);
+        allEnemies.forEach(function(enemy) {
+            if (enemy.width > canvas.width) { 
+            allEnemies.splice(enemy, 1);
+            }
+        });
+        allEnemies = [];
+        enemies.create(k);
+    
+  }, 5000);
 
 
 //// PLAYER
@@ -128,6 +136,60 @@ Player.prototype.render = function() {
 var player = new Player();
 
 //create Gems
+
+var allGems = [];
+var Gem = function(x, y) {
+    this.x = x;
+    this.y = y;
+    this.sprite = 'images/gem-orange.png';
+};
+
+Gem.prototype.update = function() {
+    this.xNow = this.x;
+    this.yNow = this.y;
+};
+
+Gem.prototype.render = function() {
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+};
+
+var Gems = function () {
+    this.preliminaryGemsArray = [];
+}
+
+Gems.prototype.create = function (num) {
+//    debugger;
+
+    for(var i = 0; i < num; i++) {
+       
+        var positionX = randomInteger(0, 4);
+        var positionY = randomInteger(2, 4);
+      
+        this.preliminaryGemsArray[allGems.length] = new Gem (xOptions[positionX], yOptionsForGems[positionY]);
+       allGems.push(this.preliminaryGemsArray[allGems.length]);
+      
+        
+    }
+}
+
+Gems.prototype.reset = function() {
+    allGems = [];
+};
+
+var gems = new Gems();
+
+gems.create(3);
+
+setInterval(function() {
+    if (allGems.length === 0) {
+        let k = randomInteger(1, 4)
+        setTimeout (gems.create(k), 1000);
+    } 
+  }, 500);
+
+
+
+
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.

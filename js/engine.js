@@ -159,6 +159,10 @@ var Engine = (function(global) {
             enemy.render();
         });
 
+        allGems.forEach(function(gem) {
+            gem.render();
+        });
+
         player.render();
     }
 
@@ -193,16 +197,34 @@ var Engine = (function(global) {
                 body.classList.add('addRedColor');
                 player.sprite = 'images/char-cat-girl_inverted.png';
                 
-                setTimeout(function() { player.sprite = 'images/char-cat-girl.png';
+                setTimeout(function() { 
+                    player.sprite = 'images/char-cat-girl.png';
                 body.classList.remove('addRedColor');
-                 }, 100);
-
+                 }, 200);
+           ///Check why setTimeout doesn't work as I want - multiple hero
                  player.returnToStart();
+                
+                 
                 
             }
         });
 
+        allGems.forEach(function(gem) {
+            if(player.y === gem.y-50 && player.x > gem.x-50 && player.x < gem.x+50) {
+                allGems.splice(gem, 1);
+            }
+        });
+
+        allGems.forEach(function(gem) {
+            allEnemies.forEach(function(enemy) {
+            if(gem.y-50 === enemy.y && gem.x-50 < enemy.x && gem.x+50 > enemy.x) {
+                allGems.splice(gem, 1);
+            }
+        });
+        });
+
         if (player.y === -15) {
+            
             player.returnToStart();
             //ADD what happens! (for example: color splash + upgrade score)
         }
@@ -219,7 +241,9 @@ var Engine = (function(global) {
         'images/enemy-bug.png',
         'images/char-boy.png',
         'images/char-cat-girl.png',
-        'images/char-cat-girl_inverted.png'
+        'images/char-cat-girl_inverted.png',
+        'images/gem-orange.png'
+        
     ]);
     Resources.onReady(init);
 
