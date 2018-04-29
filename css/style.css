@@ -1,6 +1,64 @@
+
+ @font-face {
+font-family: 'FFFFORWA';
+src: url('../fonts/fffforwa-webfont.woff2') format('woff2'),
+url('../fonts/fffforwa-webfont.woff') format('woff');
+}
+
+html {
+    margin: 0;
+padding: 0;
+border: 0;
+font-size: 100%;
+line-height: 1.2;
+min-height: 100vh;
+}
 body {
     text-align: center;
-    position: relative;
+    background: linear-gradient(0deg, #4e66d2 0%, #5fc148 100%);
+    /* max-width: 535px; */
+}
+
+
+
+h1 {
+    font-family: 'FFFFORWA', Arial, sans-serif;
+    font-weight: normal;
+    font-size: 42px;
+    color: #ffde49;
+    text-shadow: 
+		-0   -3px 0   rgb(136, 146, 192),
+		 0   -3px 0   #4F67D3,
+		-0    3px 0   #4F67D3,
+		 0    3px 0   #4F67D3,
+		-3px -0   0   #4F67D3,
+		 3px -0   0   #4F67D3,
+		-3px  0   0   #4F67D3,
+		 3px  0   0   #4F67D3,
+		-1px -3px 0   #4F67D3,
+		 1px -3px 0   #4F67D3,
+		-1px  3px 0   #4F67D3,
+		 1px  3px 0   #4F67D3,
+		-3px -1px 0   #4F67D3,
+		 3px -1px 0   #4F67D3,
+		-3px  1px 0   #4F67D3,
+		 3px  1px 0   #4F67D3,
+		-2px -3px 0   #4F67D3,
+		 2px -3px 0   #4F67D3,
+		-2px  3px 0   #4F67D3,
+		 2px  3px 0   #4F67D3,
+		-3px -2px 0   #4F67D3,
+		 3px -2px 0   #4F67D3,
+		-3px  2px 0   #4F67D3,
+		 3px  2px 0   #4F67D3,
+		-3px -3px 0   #4F67D3,
+		 3px -3px 0   #4F67D3,
+		-3px  3px 0   #4F67D3,
+		 3px  3px 0   #4F67D3,
+		-3px -3px 0   #4F67D3,
+		 3px -3px 0   #4F67D3,
+		-3px  3px 0   #4F67D3,
+		 3px  3px 0   #4F67D3;
 }
 .addRedColor {
     background-color: rgba(255, 0, 0, .5);
@@ -18,4 +76,67 @@ body {
     display: block;
 }
 
+#gameOver {
+    display: none;
+}
 
+.scorePannel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+    /* width: 80%; */
+}
+#play-again,
+.score {
+    /* display: inline-block;
+    text-align: justify; */
+}
+
+.score {
+    margin-right: 5em; 
+    color: #4F67D3;
+    font-family: 'FFFFORWA', Arial, sans-serif;
+}
+
+#score {
+    color: #ffde49;
+}
+#play-again{
+    margin-left: 5em; 
+}
+
+#playAgain {
+    background-color: #f794ba;
+    font-family: 'FFFFORWA', Arial, sans-serif;
+    border: none;
+    color: #4F67D3;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 10px;
+    cursor: pointer;
+    float: left;
+    text-transform: uppercase;
+
+}
+
+#playAgain:hover {
+    background-color:#4F67D3;
+    color:  #f794ba;
+}
+/* .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+
+
+} */
+
+canvas {
+    /* height: 85vh; */
+    margin-top: -20px;
+   height: 78vh;
+}
