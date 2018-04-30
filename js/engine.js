@@ -170,11 +170,11 @@ var Engine = (function(global) {
      * handle game reset states - maybe a new game menu or a game over screen
      * those sorts of things. It's only called once by the init() method.
      */
-    function gameOver() {
-        document.getElementById('game-over').style.display = 'block';
-        document.getElementById('game-over-overlay').style.display = 'block';
-        isGameOver = true;
-    }
+    // function gameOver() {
+    //     document.getElementById('game-over').style.display = 'block';
+    //     document.getElementById('game-over-overlay').style.display = 'block';
+    //     isGameOver = true;
+    // }
     
      function reset() {
         document.getElementById('game-over').style.display = 'none';
@@ -203,7 +203,7 @@ var Engine = (function(global) {
                  }, 200);
            ///Check why setTimeout doesn't work as I want - multiple hero
                  player.returnToStart();
-                
+                 score -=2;
                  
                 
             }
@@ -212,6 +212,7 @@ var Engine = (function(global) {
         allGems.forEach(function(gem) {
             if(player.y === gem.y-50 && player.x > gem.x-50 && player.x < gem.x+50) {
                 allGems.splice(gem, 1);
+                score +=1;
             }
         });
 
@@ -219,6 +220,7 @@ var Engine = (function(global) {
             allEnemies.forEach(function(enemy) {
             if(gem.y-50 === enemy.y && gem.x-50 < enemy.x && gem.x+50 > enemy.x) {
                 allGems.splice(gem, 1);
+                score -=1;
             }
         });
         });
@@ -226,6 +228,7 @@ var Engine = (function(global) {
         if (player.y === -15) {
             
             player.returnToStart();
+            score +=3;
             //ADD what happens! (for example: color splash + upgrade score)
         }
     }

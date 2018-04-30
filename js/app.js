@@ -203,3 +203,32 @@ document.addEventListener('keydown', function(e) {
 
     player.handleInput(allowedKeys[e.keyCode]);
 });
+
+function gameover() {
+    var gameOver = document.querySelector('.congratMessage');
+    player.reset();
+    enemies.reset;
+    gems.reset;
+    gameOver.classList.add('show');
+}
+
+function restart() {
+    player.reset();
+    enemies.reset;
+    gems.reset;
+    score = 0;
+    
+}
+
+const restartButton = document.querySelector('.restartButton');
+
+restartButton.addEventListener('click', function(e) {
+ 
+    e.preventDefault();
+    restart();
+});
+
+if (score === -15) {
+debugger
+gameover();
+}

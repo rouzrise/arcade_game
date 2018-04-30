@@ -27,38 +27,38 @@ h1 {
     font-size: 42px;
     color: #ffde49;
     text-shadow: 
-		-0   -3px 0   rgb(136, 146, 192),
-		 0   -3px 0   #4F67D3,
-		-0    3px 0   #4F67D3,
-		 0    3px 0   #4F67D3,
-		-3px -0   0   #4F67D3,
-		 3px -0   0   #4F67D3,
-		-3px  0   0   #4F67D3,
-		 3px  0   0   #4F67D3,
-		-1px -3px 0   #4F67D3,
-		 1px -3px 0   #4F67D3,
-		-1px  3px 0   #4F67D3,
-		 1px  3px 0   #4F67D3,
-		-3px -1px 0   #4F67D3,
-		 3px -1px 0   #4F67D3,
-		-3px  1px 0   #4F67D3,
-		 3px  1px 0   #4F67D3,
-		-2px -3px 0   #4F67D3,
-		 2px -3px 0   #4F67D3,
-		-2px  3px 0   #4F67D3,
-		 2px  3px 0   #4F67D3,
-		-3px -2px 0   #4F67D3,
-		 3px -2px 0   #4F67D3,
-		-3px  2px 0   #4F67D3,
-		 3px  2px 0   #4F67D3,
-		-3px -3px 0   #4F67D3,
-		 3px -3px 0   #4F67D3,
-		-3px  3px 0   #4F67D3,
-		 3px  3px 0   #4F67D3,
-		-3px -3px 0   #4F67D3,
-		 3px -3px 0   #4F67D3,
-		-3px  3px 0   #4F67D3,
-		 3px  3px 0   #4F67D3;
+    -0   -3px 0   #942703,
+    0   -3px 0   #942703,
+   -0    3px 0   #942703,
+    0    3px 0   #942703,
+   -3px -0   0   #942703,
+    3px -0   0   #942703,
+   -3px  0   0   #942703,
+    3px  0   0   #942703,
+   -1px -3px 0   #942703,
+    1px -3px 0   #942703,
+   -1px  3px 0   #942703,
+    1px  3px 0   #942703,
+   -3px -1px 0   #942703,
+    3px -1px 0   #942703,
+   -3px  1px 0   #942703,
+    3px  1px 0   #942703,
+   -2px -3px 0   #942703,
+    2px -3px 0   #942703,
+   -2px  3px 0   #942703,
+    2px  3px 0   #942703,
+   -3px -2px 0   #942703,
+    3px -2px 0   #942703,
+   -3px  2px 0   #942703,
+    3px  2px 0   #942703,
+   -3px -3px 0   #942703,
+    3px -3px 0   #942703,
+   -3px  3px 0   #942703,
+    3px  3px 0   #942703,
+   -3px -3px 0   #942703,
+    3px -3px 0   #942703,
+   -3px  3px 0   #942703,
+    3px  3px 0   #942703;
 }
 .addRedColor {
     background-color: rgba(255, 0, 0, .5);
@@ -139,4 +139,66 @@ canvas {
     /* height: 85vh; */
     margin-top: -20px;
    height: 78vh;
+}
+
+.congratMessage {
+    display: none;
+}
+
+.gameOver {
+    display: none;
+}
+
+.inside {
+    position: absolute; 
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    font-size: 2em;
+    margin: 0 auto;
+  }
+  
+.congratMessage ,
+.gameOver {
+    width: 400px;
+    max-width: 100%;
+    height: 300px;
+    max-height: 100%;
+    position: fixed;
+    z-index: 100;
+    left: 50%;
+    top: 30%;
+    transform: translate(-50%, -50%);
+    background: white;
+    box-shadow: 0 0 60px 10px rgba(46, 61, 73, 0.5);
+}
+
+.restartButton {
+    background-color: #f794ba;
+    font-family: 'FFFFORWA', Arial, sans-serif;
+    border: none;
+    color: #4F67D3;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 10px;
+    cursor: pointer;
+    /* float: left; */
+    text-transform: uppercase;
+}
+
+.restartButton:hover {
+    background-color:#4F67D3;
+    color:  #f794ba;
+}
+
+displayNone {
+    display: none;
+    
+}
+
+.show {
+    display: block;
 }
