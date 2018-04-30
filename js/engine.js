@@ -89,6 +89,15 @@ var Engine = (function(global) {
         
         updateEntities(dt);
         checkCollisions();
+        scoreEl.innerHTML = score;
+        if (score < -8) {
+            // debugger
+            gameover();
+            }
+        else if(score >= 15) {
+            // debugger
+            toWin();
+            }
     }
 
     /* This is called by the update function and loops through all of the
@@ -175,7 +184,14 @@ var Engine = (function(global) {
     //     document.getElementById('game-over-overlay').style.display = 'block';
     //     isGameOver = true;
     // }
-    
+    var congratMessage = document.querySelector('.congratMessage');
+function toWin() {
+    player.reset();
+    enemies.reset;
+    gems.reset;
+    congratMessage.classList.add('show');
+    scoreCount.innerHTML = score;
+}
      function reset() {
         document.getElementById('game-over').style.display = 'none';
         document.getElementById('game-over-overlay').style.display = 'none';

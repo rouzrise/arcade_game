@@ -14,6 +14,7 @@ line-height: 1.2;
 min-height: 100vh;
 }
 body {
+    font-family: 'FFFFORWA', Arial, sans-serif;
     text-align: center;
     background: linear-gradient(0deg, #4e66d2 0%, #5fc148 100%);
     /* max-width: 535px; */
@@ -26,6 +27,7 @@ h1 {
     font-weight: normal;
     font-size: 42px;
     color: #ffde49;
+    /* letter-spacing: 4px; */
     text-shadow: 
     -0   -3px 0   #942703,
     0   -3px 0   #942703,
@@ -169,12 +171,54 @@ canvas {
     z-index: 100;
     left: 50%;
     top: 30%;
+    padding-top: 30px;
     transform: translate(-50%, -50%);
-    background: white;
+    /* background: linear-gradient(0deg, #4e66d2 0%, #5fc148 100%); */
+    color: #ffde49;
+    background-color: #4F67D3;
     box-shadow: 0 0 60px 10px rgba(46, 61, 73, 0.5);
+    text-shadow: 
+    -0   -3px 0   #942703,
+    0   -3px 0   #942703,
+   -0    3px 0   #942703,
+    0    3px 0   #942703,
+   -3px -0   0   #942703,
+    3px -0   0   #942703,
+   -3px  0   0   #942703,
+    3px  0   0   #942703,
+   -1px -3px 0   #942703,
+    1px -3px 0   #942703,
+   -1px  3px 0   #942703,
+    1px  3px 0   #942703,
+   -3px -1px 0   #942703,
+    3px -1px 0   #942703,
+   -3px  1px 0   #942703,
+    3px  1px 0   #942703,
+   -2px -3px 0   #942703,
+    2px -3px 0   #942703,
+   -2px  3px 0   #942703,
+    2px  3px 0   #942703,
+   -3px -2px 0   #942703,
+    3px -2px 0   #942703,
+   -3px  2px 0   #942703,
+    3px  2px 0   #942703,
+   -3px -3px 0   #942703,
+    3px -3px 0   #942703,
+   -3px  3px 0   #942703,
+    3px  3px 0   #942703,
+   -3px -3px 0   #942703,
+    3px -3px 0   #942703,
+   -3px  3px 0   #942703,
+    3px  3px 0   #942703;
 }
 
-.restartButton {
+.gameOverText {
+    text-decoration: blink;
+}
+
+.restartButton,
+#restartAfterGameover,
+#restartAfterWin {
     background-color: #f794ba;
     font-family: 'FFFFORWA', Arial, sans-serif;
     border: none;
@@ -189,11 +233,31 @@ canvas {
     text-transform: uppercase;
 }
 
+#restartAfterGameover,
+ {
+    margin-top: 50px;
+}
+
+#restartAfterWin {
+    margin-top: 20px;
+}
+
 .restartButton:hover {
     background-color:#4F67D3;
     color:  #f794ba;
 }
 
+#restartAfterGameover:hover,
+#restartAfterWin:hover {
+    background-color:#ffde49;
+    color:  #4F67D3;
+}
+
+.scoreText {
+    color: #ffde49;
+    text-shadow: none;
+    font-size: 16px;
+}
 displayNone {
     display: none;
     
@@ -202,3 +266,4 @@ displayNone {
 .show {
     display: block;
 }
+

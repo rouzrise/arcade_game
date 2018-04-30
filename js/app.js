@@ -42,7 +42,7 @@ Enemy.prototype.update = function(dt) {
     if(this.x > canvas.width) {
         this.x = getRandomArbitary(-1000, -50);
         }
-scoreEl.innerHTML = score;
+
     };
 
 
@@ -204,31 +204,50 @@ document.addEventListener('keydown', function(e) {
     player.handleInput(allowedKeys[e.keyCode]);
 });
 
+var gameOver = document.querySelector('.gameOver');
+
 function gameover() {
-    var gameOver = document.querySelector('.congratMessage');
+
     player.reset();
     enemies.reset;
     gems.reset;
     gameOver.classList.add('show');
 }
 
+
+
+
 function restart() {
-    player.reset();
-    enemies.reset;
-    gems.reset;
     score = 0;
-    
+    player.reset();
+    enemies.reset();
+    gems.reset();
 }
 
 const restartButton = document.querySelector('.restartButton');
 
 restartButton.addEventListener('click', function(e) {
- 
     e.preventDefault();
+    // debugger
     restart();
 });
 
-if (score === -15) {
-debugger
-gameover();
-}
+var restartAfterGameover = document.getElementById('restartAfterGameover');
+var restartAfterWin = document.getElementById('restartAfterWin');
+var congratMessage = document.querySelector('.congratMessage');
+var scoreCount = document.getElementById('scoreCount');
+
+restartAfterGameover.addEventListener('click', function(e) {
+//  debugger
+    e.preventDefault();
+    gameOver.classList.remove('show');
+    restart();
+});
+
+restartAfterWin.addEventListener('click', function(e) {
+    //  debugger
+        e.preventDefault();
+        congratMessage.classList.remove('show');
+        restart();
+    });
+

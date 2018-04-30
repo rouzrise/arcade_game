@@ -7,6 +7,20 @@
 </head>
 <body>
         <div class="redCover"></div>
+        <div class="gameOver">
+                <div class="inside">
+                <p class="gameOverText">Game over :(</p>
+                <!-- <p class="gameOver">Game over :(</p> -->
+                <button id="restartAfterGameover">Once more?</button>   
+            </div>        
+      </div>
+          <div class="congratMessage">
+            <div class="inside">
+              <p class="congratMessageText">You won!</p>
+              <div class="scoreText">Score: <span id="scoreCount"></span></div>
+              <button id="restartAfterWin">Once more?</button>  
+            </div>     
+    </div> 
     <div class = "container">
         <header>
     <h1>Classic Arcade Game</h1>
@@ -19,27 +33,14 @@
               
             
             </section>
-      
+
 
     <script src="js/resources.js"></script>
     <script src="js/app.js"></script>
     <script src="js/engine.js"></script>
 
-    <div class="congratMessage">
-            <div class="inside">
-              <p class="congratMessageText">You won! Congrats!</p>
-              <!-- <p class="congratMessage">You won! Congrats!</p> -->
-              <div>Score: <span id="score"></span></div>
-              <button class="restartButton" title="Close">Once more?</button>  
-            </div>     
-    </div>
-    <div class="gameOver">
-            <div class="inside">
-            <p class="gameOverText">Game over :(</p>
-            <!-- <p class="gameOver">Game over :(</p> -->
-            <button class="restartButton" title="Close">Once more?</button>   
-        </div>        
-  </div>
+
+  
 </div>
 </body>
 </html>
