@@ -62,9 +62,7 @@ h1 {
    -3px  3px 0   #942703,
     3px  3px 0   #942703;
 }
-.addRedColor {
-    background-color: rgba(255, 0, 0, .5);
-}
+
 
 .redCover {
     width: 505px;
@@ -266,4 +264,10 @@ displayNone {
 .show {
     display: block;
 }
+.addRedColor {
+    background: rgba(255, 0, 0, .5);
+}
 
+.addYellowColor{
+    background: rgb(255, 255, 0, .5);
+}

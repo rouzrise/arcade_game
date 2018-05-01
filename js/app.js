@@ -1,11 +1,5 @@
-
-var playerSpeed = 50;
-// var enemySpeed = 100; 
-// optionally - find the way to set enemySpeed through changing earlier defined speed
 var allEnemies = [];
-var gameTime = 0;
-var isGameOver;
-var score = 0;
+var score = 20;
 var scoreEl = document.getElementById('score');
 function getRandomArbitary(min, max) {
     return Math.random() * (max - min) + min;
@@ -111,6 +105,7 @@ setInterval(function() {
         });
         allEnemies = [];
         enemies.create(k);
+
     
   }, 5000);
 
@@ -210,7 +205,7 @@ gems.create(3);
 
 setInterval(function() {
     if (allGems.length === 0) {
-        let k = randomInteger(1, 4)
+        let k = randomInteger(1, 3)
         setTimeout (gems.create(k), 1000);
     } 
   }, 500);
@@ -247,7 +242,7 @@ function gameover() {
 
 
 function restart() {
-    score = 0;
+    score = 20;
     player.reset();
     enemies.reset();
     gems.reset();

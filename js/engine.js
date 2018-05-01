@@ -92,17 +92,17 @@ var Engine = (function(global) {
         updateEntities(dt);
         checkCollisions();
         scoreEl.innerHTML = score;
-        if (score < -8) {
+        if (score <= 0) {
             // debugger
             gameover();
-            score = 0;
+            score = 20;
            
             }
-        else if(score >= 15) {
+        else if(score >= 35) {
             // debugger
             toWin();
             myWin.play();
-            score = 0;
+            score = 20;
     // setTimeout( function() {myWin.stop();}, 500);
             }
     }
@@ -214,12 +214,11 @@ function toWin() {
     // }
 
 
-
+    var body = document.querySelector('body');
 
     function checkCollisions() {
         allEnemies.forEach(function(enemy) {
             if(player.y === enemy.y && player.x > enemy.x-50 && player.x < enemy.x+50) {
-                var body = document.querySelector('body');
                 body.classList.add('addRedColor');
                 myOuch.play();
                 player.sprite = 'images/char-cat-girl_inverted.png';
@@ -248,14 +247,18 @@ function toWin() {
             allEnemies.forEach(function(enemy) {
             if(gem.y-50 === enemy.y && gem.x-50 < enemy.x && gem.x+50 > enemy.x) {
                 allGems.splice(gem, 1);
+                setTimeout (gems.create(1), 5000);
                 score -=1;
-                // myGemCollect.play();
             }
         });
         });
 
         if (player.y === -15) {
             myWater.play();
+            body.classList.add('addYellowColor');
+            setTimeout(function() { 
+                body.classList.remove('addYellowColor');
+                 }, 200);
             player.returnToStart();
             score +=3;
 
