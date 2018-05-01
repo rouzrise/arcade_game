@@ -76,9 +76,34 @@ var enemies = new Enemies();
 
 enemies.create(5);
 
+var myMusic;
+myMusic = new sound("music/portal.mp3");
+myMusic.play();
+myGemCollect = new sound("music/gemCollect.mp3");
+myWin = new sound("music/win.mp3");
+myWater = new sound ("music/water.mp3");
+myOuch = new sound("music/ouch.mp3");
+myGameover = new sound("music/gameover.mp3");
+
+function sound(src) {
+    // debugger
+    this.sound = document.createElement("audio");
+    this.sound.src = src;
+    this.sound.setAttribute("preload", "auto");
+    this.sound.setAttribute("controls", "none");
+    this.sound.style.display = "none";
+    document.body.appendChild(this.sound);
+    this.play = function(){
+        this.sound.play();
+    }
+    this.stop = function(){
+        this.sound.pause();
+    }
+}
+
 setInterval(function() {
-    
-        let k = randomInteger(1, 4);
+         
+        let k = randomInteger(2, 5);
         allEnemies.forEach(function(enemy) {
             if (enemy.width > canvas.width) { 
             allEnemies.splice(enemy, 1);
@@ -89,6 +114,9 @@ setInterval(function() {
     
   }, 5000);
 
+  function startGame () {
+
+  }
 
 //// PLAYER
 var Player = function() {
@@ -209,9 +237,10 @@ var gameOver = document.querySelector('.gameOver');
 function gameover() {
 
     player.reset();
-    enemies.reset;
-    gems.reset;
+    enemies.reset();
+    gems.reset();
     gameOver.classList.add('show');
+    myGameover.play();
 }
 
 
@@ -251,3 +280,5 @@ restartAfterWin.addEventListener('click', function(e) {
         restart();
     });
 
+
+   

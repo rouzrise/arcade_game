@@ -74,6 +74,8 @@ var Engine = (function(global) {
           */
         lastTime = Date.now();
         main();
+
+        
     }
 
     /* This function is called by main (our game loop) and itself calls all
@@ -93,10 +95,15 @@ var Engine = (function(global) {
         if (score < -8) {
             // debugger
             gameover();
+            score = 0;
+           
             }
         else if(score >= 15) {
             // debugger
             toWin();
+            myWin.play();
+            score = 0;
+    // setTimeout( function() {myWin.stop();}, 500);
             }
     }
 
@@ -184,26 +191,29 @@ var Engine = (function(global) {
     //     document.getElementById('game-over-overlay').style.display = 'block';
     //     isGameOver = true;
     // }
-    var congratMessage = document.querySelector('.congratMessage');
+    // var congratMessage = document.querySelector('.congratMessage');
 function toWin() {
     player.reset();
-    enemies.reset;
-    gems.reset;
+    enemies.reset();
+    gems.reset();
     congratMessage.classList.add('show');
     scoreCount.innerHTML = score;
+    // score = 0;
 }
-     function reset() {
-        document.getElementById('game-over').style.display = 'none';
-        document.getElementById('game-over-overlay').style.display = 'none';
-        isGameOver = false;
-        gameTime = 0;
-        score = 0;
+
+///do i need it???
+    //  function reset() {
+    //     // document.getElementById('game-over').style.display = 'none';
+    //     // document.getElementById('game-over-overlay').style.display = 'none';
+    //     // isGameOver = false;
+    //     // gameTime = 0;
+    //     score = 0;
     
-        allEnemies = [];
-        bullets = [];
-    
-        player.position = [50, canvas.height / 2];
-    }
+    //     allEnemies = [];
+    //     // player.position = [50, canvas.height / 2];
+    // }
+
+
 
 
     function checkCollisions() {
@@ -211,6 +221,7 @@ function toWin() {
             if(player.y === enemy.y && player.x > enemy.x-50 && player.x < enemy.x+50) {
                 var body = document.querySelector('body');
                 body.classList.add('addRedColor');
+                myOuch.play();
                 player.sprite = 'images/char-cat-girl_inverted.png';
                 
                 setTimeout(function() { 
@@ -229,6 +240,7 @@ function toWin() {
             if(player.y === gem.y-50 && player.x > gem.x-50 && player.x < gem.x+50) {
                 allGems.splice(gem, 1);
                 score +=1;
+                myGemCollect.play();
             }
         });
 
@@ -237,14 +249,16 @@ function toWin() {
             if(gem.y-50 === enemy.y && gem.x-50 < enemy.x && gem.x+50 > enemy.x) {
                 allGems.splice(gem, 1);
                 score -=1;
+                // myGemCollect.play();
             }
         });
         });
 
         if (player.y === -15) {
-            
+            myWater.play();
             player.returnToStart();
             score +=3;
+
             //ADD what happens! (for example: color splash + upgrade score)
         }
     }
