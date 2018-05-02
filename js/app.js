@@ -1,5 +1,6 @@
 var allEnemies = [];
 var score = 20;
+var gameActive = true;
 var scoreEl = document.getElementById('score');
 function getRandomArbitary(min, max) {
     return Math.random() * (max - min) + min;
@@ -14,7 +15,6 @@ var xOptions = [0, 101, 202, 303, 404];
 //step - 83
 var yOptions = [400, 317, 234, 151, 68, -15];
 var yOptionsForGems = [0, 0, 284, 201, 118, 0];
-var myMusic;
 
 function sound(src) {
     // debugger
@@ -32,14 +32,14 @@ function sound(src) {
     }
 }
 
-myMusic = new sound("music/portal.mp3");
+var myMusic = new sound("music/portal.mp3");
 myMusic.play();
 
-myGemCollect = new sound("music/gemCollect.mp3");
-myWin = new sound("music/win.mp3");
-myWater = new sound ("music/water.mp3");
-myOuch = new sound("music/ouch.mp3");
-myGameover = new sound("music/gameover.mp3");
+var myGemCollect = new sound("music/gemCollect.mp3");
+var myWin = new sound("music/win.mp3");
+var myWater = new sound ("music/water.mp3");
+var myOuch = new sound("music/ouch.mp3");
+var myGameover = new sound("music/gameover.mp3");
 
 ///TODO - Set generic class "Entity" so that Enemy, Player, future Gems could inherit from it
 
@@ -95,19 +95,19 @@ var enemies = new Enemies();
 
 // enemies.create(5);
 
-setInterval(function() {
+// setInterval(function() {
          
-        let k = randomInteger(2, 5);
-        allEnemies.forEach(function(enemy) {
-            if (enemy.width > canvas.width) { 
-            allEnemies.splice(enemy, 1);
-            }
-        });
-        allEnemies = [];
-        enemies.create(k);
+//         let k = randomInteger(2, 5);
+//         allEnemies.forEach(function(enemy) {
+//             if (enemy.width > canvas.width) { 
+//             allEnemies.splice(enemy, 1);
+//             }
+//         });
+//         allEnemies = [];
+//         enemies.create(k);
 
     
-  }, 5000);
+//   }, 5000);
 
   function startGame () {
 
@@ -201,14 +201,14 @@ Gems.prototype.reset = function() {
 
 var gems = new Gems();
 
-gems.create(3);
+// gems.create(3);
 
-setInterval(function() {
-    if (allGems.length === 0) {
-        let k = randomInteger(1, 3)
-        setTimeout (gems.create(k), 1000);
-    } 
-  }, 500);
+// setInterval(function() {
+//     if (allGems.length === 0) {
+//         let k = randomInteger(1, 3)
+//         setTimeout (gems.create(k), 1000);
+//     } 
+//   }, 500);
 
 
 
@@ -227,10 +227,38 @@ document.addEventListener('keydown', function(e) {
     player.handleInput(allowedKeys[e.keyCode]);
 });
 
+
+      function start() {
+        enemies.create(3);
+        this.enemiesInterval = setInterval(function() {
+        let k = randomInteger(2, 5);
+        allEnemies.forEach(function(enemy) {
+            if (enemy.width > canvas.width) { 
+            allEnemies.splice(enemy, 1);
+            }
+        });
+        allEnemies = [];
+        enemies.create(k);
+
+    
+    }, 5000);
+
+    gems.create(3);
+
+    this.gemsInterval = setInterval(function() {
+        if (allGems.length === 0) {
+            let k = randomInteger(1, 3)
+            setTimeout (gems.create(k), 1000);
+        } 
+      }, 500);
+    }
+
+    start();
 var gameOver = document.querySelector('.gameOver');
 
 function gameover() {
-
+    clearInterval(enemiesInterval);
+    clearInterval(gemsInterval);
     player.reset();
     enemies.reset();
     gems.reset();
@@ -246,11 +274,14 @@ function restart() {
     player.reset();
     enemies.reset();
     gems.reset();
+    start()
 }
 
 const restartButton = document.querySelector('.restartButton');
 
 restartButton.addEventListener('click', function(e) {
+    clearInterval(enemiesInterval);
+    clearInterval(gemsInterval);
     e.preventDefault();
     // debugger
     restart();

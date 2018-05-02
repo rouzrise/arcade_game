@@ -181,6 +181,8 @@ var Engine = (function(global) {
 
  
 function toWin() {
+    clearInterval(enemiesInterval);
+    clearInterval(gemsInterval);
     player.reset();
     enemies.reset();
     gems.reset();
