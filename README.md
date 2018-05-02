@@ -1,6 +1,44 @@
-frontend-nanodegree-arcade-game
-===============================
+# Classic Arcade Game Clone
+Classic Arcade Game Clone is an online collecting game. You compete with Bugs trying to reach water and collect Gems.
+.
 
-Students should use this [rubric](https://review.udacity.com/#!/projects/2696458597/rubric) for self-checking their submission. Make sure the functions you write are **object-oriented** - either class functions (like Player and Enemy) or class prototype functions such as Enemy.prototype.checkCollisions, and that the keyword 'this' is used appropriately within your class and class prototype functions to refer to the object the function is called upon. Also be sure that the **readme.md** file is updated with your instructions on both how to 1. Run and 2. Play your arcade game.
+### How to play
 
-For detailed instructions on how to get started, check out this [guide](https://docs.google.com/document/d/1v01aScPjSWCCWQLIpFqvg3-vXLH2e8_SZQKC8jNO0Dc/pub?embedded=true).
+##### 1.Your principal aim - to get more than 35 scores.
+To win the game you (Player) should get 35 scores (or more).
+
+When you start the game you already have 20 scores.
+Every time you hit a bug, you lose 2 scores.
+Every time you collect a Gem, you get 1 score. 
+Every time a bug collects a Gem - your score decreases at 1 point.
+When you reach (and touch) water - your scores increase at 3 points.
+
+##### 2. Things that increase scores.
+
+Collecting Gem - 1 score.
+Touching water - 1 score.
+
+##### 3. Things that decrease scores.
+
+Hitting Bug - minus 2 scores.
+Bug eating Gem - minus 1 score.
+
+##### 3. Room for movement.
+
+Player can move anywhere within Canvas.
+Bugs can only move at the stone pavement.
+While you are at the grass - you are safe and bugs can't touch you. But don't just stand and look around -
+because bugs can also collect Gems and turn it into Game Over. 
+
+##### 4 Restart.
+You can restart game any time - just press 'Play again' button - and the show will begin from the start!)
+
+##### 5. Compete!
+Show who wins - you or Bugs?!
+
+### Idea
+The game was created as part of the Front-End Web Developer Nanodegree Program by Udacity. For more information please visit [https://www.udacity.com](https://www.udacity.com)
+
+### License
+
+The content of this repository is licensed under a [Creative Commons Attribution License](https://creativecommons.org/licenses/by/3.0/us/) 
