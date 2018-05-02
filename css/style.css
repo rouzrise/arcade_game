@@ -256,6 +256,11 @@ canvas {
     text-shadow: none;
     font-size: 16px;
 }
+
+.scoreTextRed {
+    color: #ff0000;
+}
+
 displayNone {
     display: none;
     

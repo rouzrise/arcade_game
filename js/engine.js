@@ -84,7 +84,12 @@ var Engine = (function(global) {
         updateEntities(dt);
         checkCollisions();
         scoreEl.innerHTML = score;
-        if (score <= 0) {
+
+        if (score <=10 && score > 0) {
+            debugger
+            scoreEl.classList.add('scoreTextRed');
+        } 
+        else if (score <= 0) {
             // debugger
             gameover();
             score = 20;

@@ -52,7 +52,7 @@ Enemies.prototype.create = function (num) {
 
     for(var i = 0; i < num; i++) {
         // debugger
-        var speed = getRandomArbitary(50, 400);
+        var speed = getRandomArbitary(50, 250);
        
         var position = randomInteger(2, 4);
       
