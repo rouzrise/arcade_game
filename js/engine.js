@@ -63,15 +63,7 @@ var Engine = (function(global) {
      * game loop.
      */
     function init() {
-       /* document.getElementById('play-again').addEventListener('click', function() {
-            reset();
-        });
-         */
-
-        /////?????????? CHECK LATER
-        /* 
-        reset();
-          */
+ 
         lastTime = Date.now();
         main();
 
@@ -182,16 +174,7 @@ var Engine = (function(global) {
         player.render();
     }
 
-    /* This function does nothing but it could have been a good place to
-     * handle game reset states - maybe a new game menu or a game over screen
-     * those sorts of things. It's only called once by the init() method.
-     */
-    // function gameOver() {
-    //     document.getElementById('game-over').style.display = 'block';
-    //     document.getElementById('game-over-overlay').style.display = 'block';
-    //     isGameOver = true;
-    // }
-    // var congratMessage = document.querySelector('.congratMessage');
+ 
 function toWin() {
     player.reset();
     enemies.reset();
@@ -200,18 +183,6 @@ function toWin() {
     scoreCount.innerHTML = score;
     // score = 0;
 }
-
-///do i need it???
-    //  function reset() {
-    //     // document.getElementById('game-over').style.display = 'none';
-    //     // document.getElementById('game-over-overlay').style.display = 'none';
-    //     // isGameOver = false;
-    //     // gameTime = 0;
-    //     score = 0;
-    
-    //     allEnemies = [];
-    //     // player.position = [50, canvas.height / 2];
-    // }
 
 
     var body = document.querySelector('body');
