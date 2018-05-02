@@ -93,26 +93,6 @@ Enemies.prototype.reset = function() {
 
 var enemies = new Enemies();
 
-// enemies.create(5);
-
-// setInterval(function() {
-         
-//         let k = randomInteger(2, 5);
-//         allEnemies.forEach(function(enemy) {
-//             if (enemy.width > canvas.width) { 
-//             allEnemies.splice(enemy, 1);
-//             }
-//         });
-//         allEnemies = [];
-//         enemies.create(k);
-
-    
-//   }, 5000);
-
-  function startGame () {
-
-  }
-
 //// PLAYER
 var Player = function() {
     this.sprite = 'images/char-cat-girl.png';
@@ -201,18 +181,6 @@ Gems.prototype.reset = function() {
 
 var gems = new Gems();
 
-// gems.create(3);
-
-// setInterval(function() {
-//     if (allGems.length === 0) {
-//         let k = randomInteger(1, 3)
-//         setTimeout (gems.create(k), 1000);
-//     } 
-//   }, 500);
-
-
-
-
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
@@ -243,18 +211,28 @@ document.addEventListener('keydown', function(e) {
     
     }, 5000);
 
-    gems.create(3);
+    gems.create(2);
 
     this.gemsInterval = setInterval(function() {
         if (allGems.length === 0) {
-            let k = randomInteger(1, 3)
+            let k = randomInteger(1, 2)
             setTimeout (gems.create(k), 1000);
         } 
       }, 500);
     }
 
     start();
+
+
+
+
+
 var gameOver = document.querySelector('.gameOver');
+const restartButton = document.querySelector('.restartButton');
+var restartAfterGameover = document.getElementById('restartAfterGameover');
+var restartAfterWin = document.getElementById('restartAfterWin');
+var congratMessage = document.querySelector('.congratMessage');
+var scoreCount = document.getElementById('scoreCount');
 
 function gameover() {
     clearInterval(enemiesInterval);
@@ -266,8 +244,15 @@ function gameover() {
     myGameover.play();
 }
 
-
-
+function toWin() {
+    clearInterval(enemiesInterval);
+    clearInterval(gemsInterval);
+    player.reset();
+    enemies.reset();
+    gems.reset();
+    congratMessage.classList.add('show');
+    scoreCount.innerHTML = score;
+}
 
 function restart() {
     score = 20;
@@ -277,8 +262,6 @@ function restart() {
     start()
 }
 
-const restartButton = document.querySelector('.restartButton');
-
 restartButton.addEventListener('click', function(e) {
     clearInterval(enemiesInterval);
     clearInterval(gemsInterval);
@@ -286,11 +269,6 @@ restartButton.addEventListener('click', function(e) {
     // debugger
     restart();
 });
-
-var restartAfterGameover = document.getElementById('restartAfterGameover');
-var restartAfterWin = document.getElementById('restartAfterWin');
-var congratMessage = document.querySelector('.congratMessage');
-var scoreCount = document.getElementById('scoreCount');
 
 restartAfterGameover.addEventListener('click', function(e) {
 //  debugger

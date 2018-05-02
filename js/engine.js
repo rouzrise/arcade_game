@@ -180,16 +180,7 @@ var Engine = (function(global) {
     }
 
  
-function toWin() {
-    clearInterval(enemiesInterval);
-    clearInterval(gemsInterval);
-    player.reset();
-    enemies.reset();
-    gems.reset();
-    congratMessage.classList.add('show');
-    scoreCount.innerHTML = score;
-    // score = 0;
-}
+
 
 
     var body = document.querySelector('body');
@@ -239,8 +230,6 @@ function toWin() {
                  }, 200);
             player.returnToStart();
             score +=3;
-
-            //ADD what happens! (for example: color splash + upgrade score)
         }
     }
 
