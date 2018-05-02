@@ -14,7 +14,32 @@ var xOptions = [0, 101, 202, 303, 404];
 //step - 83
 var yOptions = [400, 317, 234, 151, 68, -15];
 var yOptionsForGems = [0, 0, 284, 201, 118, 0];
+var myMusic;
 
+function sound(src) {
+    // debugger
+    this.sound = document.createElement("audio");
+    this.sound.src = src;
+    this.sound.setAttribute("preload", "auto");
+    this.sound.setAttribute("controls", "none");
+    this.sound.style.display = "none";
+    document.body.appendChild(this.sound);
+    this.play = function(){
+        this.sound.play();
+    }
+    this.stop = function(){
+        this.sound.pause();
+    }
+}
+
+myMusic = new sound("music/portal.mp3");
+myMusic.play();
+
+myGemCollect = new sound("music/gemCollect.mp3");
+myWin = new sound("music/win.mp3");
+myWater = new sound ("music/water.mp3");
+myOuch = new sound("music/ouch.mp3");
+myGameover = new sound("music/gameover.mp3");
 
 ///TODO - Set generic class "Entity" so that Enemy, Player, future Gems could inherit from it
 
@@ -68,32 +93,7 @@ Enemies.prototype.reset = function() {
 
 var enemies = new Enemies();
 
-enemies.create(5);
-
-var myMusic;
-myMusic = new sound("music/portal.mp3");
-myMusic.play();
-myGemCollect = new sound("music/gemCollect.mp3");
-myWin = new sound("music/win.mp3");
-myWater = new sound ("music/water.mp3");
-myOuch = new sound("music/ouch.mp3");
-myGameover = new sound("music/gameover.mp3");
-
-function sound(src) {
-    // debugger
-    this.sound = document.createElement("audio");
-    this.sound.src = src;
-    this.sound.setAttribute("preload", "auto");
-    this.sound.setAttribute("controls", "none");
-    this.sound.style.display = "none";
-    document.body.appendChild(this.sound);
-    this.play = function(){
-        this.sound.play();
-    }
-    this.stop = function(){
-        this.sound.pause();
-    }
-}
+// enemies.create(5);
 
 setInterval(function() {
          
