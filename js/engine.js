@@ -13,7 +13,7 @@
  * writing app.js a little simpler to work with.
  */
 
-var Engine = (function(global) {
+const Engine = (function(global) {
     /* Predefine the variables we'll be using within this scope,
      * create the canvas element, grab the 2D context for that canvas
      * set the canvas elements height/width and add it to the DOM.
@@ -38,7 +38,7 @@ var Engine = (function(global) {
          * would be the same for everyone (regardless of how fast their
          * computer is) - hurray time!
          */
-        var now = Date.now(),
+        const now = Date.now(),
         dt = (now - lastTime) / 1000.0;
 
         /* Call our update/render functions, pass along the time delta to
@@ -63,11 +63,8 @@ var Engine = (function(global) {
      * game loop.
      */
     function init() {
- 
         lastTime = Date.now();
         main();
-
-        
     }
 
     /* This function is called by main (our game loop) and itself calls all
@@ -82,25 +79,34 @@ var Engine = (function(global) {
     function update(dt) {
         
         updateEntities(dt);
+        //loops playing main background music
+        myMusic.loop = true;
+        myMusic.play();
+
+        //invoke CheckCollisions funcrion
         checkCollisions();
+        
         scoreEl.innerHTML = score;
 
-        if (score <=10 && score > 0) {
-            // debugger
-            scoreEl.classList.add('scoreTextRed');
-        } 
-        else if (score <= 0) {
+        // if (score <=10 && score > 0) {
+        //     debugger
+        //     document.querySelector('.score').classList.add('scoreTextRed');
+        // } 
+
+        //Check if score <= 0 to invoke gameover function
+        if (score <= 0) {
             // debugger
             gameover();
             score = 20;
            
             }
+
+        //Check if score >= 0 to invoke toWin function    
         else if(score >= 35) {
             // debugger
             toWin();
             myWin.play();
             score = 20;
-    // setTimeout( function() {myWin.stop();}, 500);
             }
     }
 
@@ -179,9 +185,11 @@ var Engine = (function(global) {
         player.render();
     }
 
-    var body = document.querySelector('body');
+    const body = document.querySelector('body');
 
     function checkCollisions() {
+
+        //check collisions enemy-player
         allEnemies.forEach(function(enemy) {
             if(player.y === enemy.y && player.x > enemy.x-50 && player.x < enemy.x+50) {
                 body.classList.add('addRedColor');
@@ -192,20 +200,20 @@ var Engine = (function(global) {
                 player.sprite = 'images/char-cat-girl.png';
                 body.classList.remove('addRedColor');
                  }, 200);
-           ///Check why setTimeout doesn't work as I want - multiple hero
                 player.returnToStart();
                 score -=2;
             }
         });
 
+         //check collisions gem-player 
         allGems.forEach(function(gem) {
             if(player.y === gem.y-50 && player.x > gem.x-50 && player.x < gem.x+50) {
-                // allGems.splice(gem, 1);
+                // 'put' gem out of the canvas 
                 gem.x = -1000;
                 score +=1;
                 myGemCollect.play();
-                var positionX = randomInteger(0, 4);
-                var positionY = randomInteger(2, 4);
+                const positionX = randomInteger(0, 4);
+                const positionY = randomInteger(2, 4);
                 setTimeout (function () {gem.x = xOptions[positionX];
                 gem.y = yOptionsForGems[positionY];
                 }, 3000);
@@ -219,8 +227,8 @@ var Engine = (function(global) {
                 // setTimeout (gems.create(1), 5000);
                 gem.x = -1000;
                 score -=1;
-                var positionX = randomInteger(0, 4);
-                var positionY = randomInteger(2, 4);
+                const positionX = randomInteger(0, 4);
+                const positionY = randomInteger(2, 4);
                 setTimeout (function () {gem.x = xOptions[positionX];
                 gem.y = yOptionsForGems[positionY];
                 }, 3000);

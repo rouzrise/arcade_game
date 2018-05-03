@@ -1,5 +1,7 @@
 let allEnemies = [];
+let allGems = [];
 let score = 20;
+
 const scoreEl = document.getElementById('score');
 //step - 101
 const xOptions = [0, 101, 202, 303, 404];
@@ -7,18 +9,27 @@ const xOptions = [0, 101, 202, 303, 404];
 const yOptions = [400, 317, 234, 151, 68, -15];
 const yOptionsForGems = [0, 0, 284, 201, 118, 0];
 
+const gameOver = document.querySelector('.gameOver');
+const restartButton = document.querySelector('.restartButton');
+const restartAfterGameover = document.getElementById('restartAfterGameover');
+const restartAfterWin = document.getElementById('restartAfterWin');
+const congratMessage = document.querySelector('.congratMessage');
+const scoreCount = document.getElementById('scoreCount');
+
+//gives random numbers between min and max
 function getRandomArbitary(min, max) {
     return Math.random() * (max - min) + min;
 };
 
+//gives random integer numbers between min and max
 function randomInteger(min, max) {
     var rand = min + Math.random() * (max + 1 - min);
     rand = Math.floor(rand);
     return rand;
 };
 
-
-function sound(src) {
+//constructor for music
+function Sound(src) {
     // debugger
     this.sound = document.createElement("audio");
     this.sound.src = src;
@@ -29,30 +40,21 @@ function sound(src) {
     this.play = function(){
         this.sound.play();
     };
-    this.stop = function(){
-        this.sound.pause();
-    };
 };
 
-const myMusic = new sound("music/portal.mp3");
-// myMusic.loop = true;
-myMusic.play();
-myMusic.addEventListener('ended', function() {
-    this.currentTime = 0;
-    this.play();
-}, false);
+const myMusic = new Sound("music/portal.mp3");
+const myGemCollect = new Sound("music/gemCollect.mp3");
+const myWin = new Sound("music/win.mp3");
+const myWater = new Sound ("music/water.mp3");
+const myOuch = new Sound("music/ouch.mp3");
+const myGameover = new Sound("music/gameover.mp3");
 
-
-const myGemCollect = new sound("music/gemCollect.mp3");
-const myWin = new sound("music/win.mp3");
-const myWater = new sound ("music/water.mp3");
-const myOuch = new sound("music/ouch.mp3");
-const myGameover = new sound("music/gameover.mp3");
-
-///TODO - Set generic class "Entity" so that Enemy, Player, future Gems could inherit from it
+///TODO - Set generic class "Entity" so that Enemy, Player, 
+//future Gems could inherit from it
 
 ///ENEMY
 
+//constructor for Enemy
 const Enemy = function(speed, y) {
     this.sprite = 'images/enemy-bug.png';
     this.x = -100;
@@ -60,38 +62,40 @@ const Enemy = function(speed, y) {
     this.speed = speed;
 };
 
+//Multiply any movement by the dt parameter
+// which will ensure the game runs at the same speed for
+// all computers.
 Enemy.prototype.update = function(dt) {
-
-    // You should multiply any movement by the dt parameter
-    // which will ensure the game runs at the same speed for
-    // all computers.
     this.x = this.x + this.speed * dt;
         if(this.x > canvas.width) {
         this.x = getRandomArbitary(-1000, -50);
         }
+};
 
-    };
-
-
+// Draw the Enemy on the screen
 Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
+//Create preliminary array for enemies - constructor for multiple enemies
 const Enemies = function () {
     this.preliminaryEnemiesArray = [];
 };
 
+//Update allEnemies array by transferring enemies from preliminary array 
+//with random speed and Y-position on the pavement
 Enemies.prototype.create = function (num) {
 
-    for(var i = 0; i < num; i++) {
+    for(let i = 0; i < num; i++) {
         // debugger
         const speed = getRandomArbitary(50, 250);
         const position = randomInteger(2, 4);
         this.preliminaryEnemiesArray[allEnemies.length] = new Enemy(speed, yOptions[position]);
         allEnemies.push(this.preliminaryEnemiesArray[allEnemies.length]);
     }
-}
+};
 
+//Clear all enemies
 Enemies.prototype.reset = function() {
     allEnemies = [];
 };
@@ -99,29 +103,35 @@ Enemies.prototype.reset = function() {
 const enemies = new Enemies();
 
 //// PLAYER
+
+//Constructor for Player
 const Player = function() {
     this.sprite = 'images/char-cat-girl.png';
     this.x = 203;
     this.y =  400;
 };
 
+//Update Player position
 Player.prototype.update = function() {
     this.xNow = this.x;
     this.yNow = this.y;
 };
 
+//Return Player to start position
 Player.prototype.reset = function() {
     this.x = 203;
     this.y = 400;
 };
 
+//Return Player to the bottom grass to random position
 Player.prototype.returnToStart = function() {
-
-    var position = randomInteger(0, 4);
+    const position = randomInteger(0, 4);
     this.x = xOptions[position];
     this.y = 400;
 };
 
+//Move player after keys are pressed and 
+//prevent Player to move out of the canvas
 Player.prototype.handleInput = function (pressedKey) {
     if (pressedKey === 'left' && this.x >= 101) {
         this.x -= 101;
@@ -135,45 +145,51 @@ Player.prototype.handleInput = function (pressedKey) {
     if (pressedKey === 'down' && this.y <= 317) {
         this.y += 83;
     }
-}
+};
 
+// Draw the Player on the screen
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
 const player = new Player();
 
-//create Gems
+//GEMS
 
-let allGems = [];
+//constructor for Gem
 const Gem = function(x, y) {
     this.x = x;
     this.y = y;
     this.sprite = 'images/gem-orange.png';
 };
 
+//Update Gem position
 Gem.prototype.update = function() {
     this.xNow = this.x;
     this.yNow = this.y;
 };
 
+// Draw Gem on the screen
 Gem.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
+//Create preliminary array for gems - constructor for multiple gems
 const Gems = function () {
     this.preliminaryGemsArray = [];
-}
+};
 
+//Update allGems array by transferring gems from preliminary array 
+//with random X- and Y-position on the pavement
 Gems.prototype.create = function (num) {
 //    debugger
-    for(var i = 0; i < num; i++) {
+    for(let i = 0; i < num; i++) {
         const positionX = randomInteger(0, 4);
         const positionY = randomInteger(2, 4);
         this.preliminaryGemsArray[allGems.length] = new Gem (xOptions[positionX], yOptionsForGems[positionY]);
         allGems.push(this.preliminaryGemsArray[allGems.length]); 
     }
-}
+};
 
 Gems.prototype.reset = function() {
     allGems = [];
@@ -181,11 +197,10 @@ Gems.prototype.reset = function() {
 
 const gems = new Gems();
 
-
-// This listens for key presses and sends the keys to your
-// Player.handleInput() method. You don't need to modify this.
+// Listen for key presses and send the keys to
+// Player.handleInput() method.
 document.addEventListener('keydown', function(e) {
-    var allowedKeys = {
+    const allowedKeys = {
         37: 'left',
         38: 'up',
         39: 'right',
@@ -195,32 +210,15 @@ document.addEventListener('keydown', function(e) {
     player.handleInput(allowedKeys[e.keyCode]);
 });
 
-
+//This is responsible for what happens after the page is loaded
 function start() {
+    //Create 6 enemies
     enemies.create(6);
-    //     this.enemiesInterval = setInterval(function() {
-    //     let k = randomInteger(3, 6);
-    //     allEnemies.forEach(function(enemy) {
-    //         if (enemy.width > canvas.width) { 
-    //         allEnemies.splice(enemy, 1);
-    //         }
-    //     });
-    //     allEnemies = [];
-    //     enemies.create(k);
-    // }, 5000);
-
-    // this.enemiesInterval = setInterval(function() {
-    //         let k = randomInteger(1, 2);
-    //         // allEnemies.forEach(function(enemy) {
-    //         //     if (enemy.width > canvas.width) { 
-    //         //     allEnemies.splice(enemy, 1);
-    //         //     }
-    //         // });
-    //         enemies.create(k);
-    //     }, 3000);
-
+    //Create 2 gems
     gems.create(2);
 
+    // As soon as 'collected' gems will be moved out of canvas 
+    // this will create random quantity of gems (from 1 to 2) on Canvas through interval
     this.gemsInterval = setInterval(function() {
         if (allGems.length === 0) {
             let k = randomInteger(1, 2)
@@ -228,16 +226,10 @@ function start() {
         } 
       }, 500);
 }
-
+//Invoke start function
 start();
 
-const gameOver = document.querySelector('.gameOver');
-const restartButton = document.querySelector('.restartButton');
-const restartAfterGameover = document.getElementById('restartAfterGameover');
-const restartAfterWin = document.getElementById('restartAfterWin');
-const congratMessage = document.querySelector('.congratMessage');
-const scoreCount = document.getElementById('scoreCount');
-
+//What happens after Gameover (score <= 0)
 function gameover() {
     // clearInterval(enemiesInterval);
     clearInterval(gemsInterval);
@@ -248,6 +240,7 @@ function gameover() {
     myGameover.play();
 }
 
+//What happens after Win (score >= 35)
 function toWin() {
     // clearInterval(enemiesInterval);
     clearInterval(gemsInterval);
@@ -258,6 +251,7 @@ function toWin() {
     scoreCount.innerHTML = score;
 }
 
+//Restarts game
 function restart() {
     score = 20;
     player.reset();
@@ -266,6 +260,7 @@ function restart() {
     start()
 }
 
+//Event Listener to 'Play again' button (regular restart button)
 restartButton.addEventListener('click', function(e) {
     // clearInterval(enemiesInterval);
     clearInterval(gemsInterval);
@@ -274,6 +269,7 @@ restartButton.addEventListener('click', function(e) {
     restart();
 });
 
+//Event Listener to 'Once more' button (restart button on gameover modal window)
 restartAfterGameover.addEventListener('click', function(e) {
 //  debugger
     e.preventDefault();
@@ -281,6 +277,7 @@ restartAfterGameover.addEventListener('click', function(e) {
     restart();
 });
 
+//Event Listener to 'Once more' button (restart button on 'win' modal window)
 restartAfterWin.addEventListener('click', function(e) {
     //  debugger
     e.preventDefault();
