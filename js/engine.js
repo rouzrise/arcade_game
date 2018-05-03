@@ -83,7 +83,7 @@ const Engine = (function(global) {
         myMusic.loop = true;
         myMusic.play();
 
-        //invoke CheckCollisions funcrion
+        //invoke CheckCollisions function
         checkCollisions();
         
         scoreEl.innerHTML = score;
@@ -189,7 +189,7 @@ const Engine = (function(global) {
 
     function checkCollisions() {
 
-        //check collisions enemy-player
+        //Check collisions enemy-player
         allEnemies.forEach(function(enemy) {
             if(player.y === enemy.y && player.x > enemy.x-50 && player.x < enemy.x+50) {
                 body.classList.add('addRedColor');
@@ -205,13 +205,15 @@ const Engine = (function(global) {
             }
         });
 
-         //check collisions gem-player 
+         //Check collisions gem-player 
         allGems.forEach(function(gem) {
             if(player.y === gem.y-50 && player.x > gem.x-50 && player.x < gem.x+50) {
-                // 'put' gem out of the canvas 
+                // 'Put' gem out of the canvas 
                 gem.x = -1000;
                 score +=1;
                 myGemCollect.play();
+
+                // 'Return' gem out of the canvas 
                 const positionX = randomInteger(0, 4);
                 const positionY = randomInteger(2, 4);
                 setTimeout (function () {gem.x = xOptions[positionX];
@@ -220,6 +222,7 @@ const Engine = (function(global) {
             }
         });
 
+        //Check collisions gem-enemy 
         allGems.forEach(function(gem) {
             allEnemies.forEach(function(enemy) {
             if(gem.y-50 === enemy.y && gem.x-50 < enemy.x && gem.x+50 > enemy.x) {
@@ -235,7 +238,8 @@ const Engine = (function(global) {
             }
         });
         });
-
+ 
+        //When Player reaches Water
         if (player.y === -15) {
             myWater.play();
             body.classList.add('addYellowColor');

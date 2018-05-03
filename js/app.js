@@ -217,14 +217,15 @@ function start() {
     //Create 2 gems
     gems.create(2);
 
+    //OLD optionate functionality
     // As soon as 'collected' gems will be moved out of canvas 
     // this will create random quantity of gems (from 1 to 2) on Canvas through interval
-    this.gemsInterval = setInterval(function() {
-        if (allGems.length === 0) {
-            let k = randomInteger(1, 2)
-            setTimeout (gems.create(k), 1000);
-        } 
-      }, 500);
+    // this.gemsInterval = setInterval(function() {
+    //     if (allGems.length === 0) {
+    //         let k = randomInteger(1, 2)
+    //         setTimeout (gems.create(k), 1000);
+    //     } 
+    //   }, 500);
 }
 //Invoke start function
 start();
@@ -232,7 +233,7 @@ start();
 //What happens after Gameover (score <= 0)
 function gameover() {
     // clearInterval(enemiesInterval);
-    clearInterval(gemsInterval);
+    // clearInterval(gemsInterval);
     player.reset();
     enemies.reset();
     gems.reset();
@@ -243,7 +244,7 @@ function gameover() {
 //What happens after Win (score >= 35)
 function toWin() {
     // clearInterval(enemiesInterval);
-    clearInterval(gemsInterval);
+    // clearInterval(gemsInterval);
     player.reset();
     enemies.reset();
     gems.reset();
@@ -263,7 +264,7 @@ function restart() {
 //Event Listener to 'Play again' button (regular restart button)
 restartButton.addEventListener('click', function(e) {
     // clearInterval(enemiesInterval);
-    clearInterval(gemsInterval);
+    // clearInterval(gemsInterval);
     e.preventDefault();
     // debugger
     restart();
