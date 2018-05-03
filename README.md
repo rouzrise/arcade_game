@@ -13,8 +13,8 @@ To win the game you (**Player**) should get **35** scores (or more).
 When you start the game you already have **20** scores.
 Every time you hit a **Bug**, you lose **2** scores.
 Every time you collect a **Gem**, you get **1** score. 
-Every time a **Bug** collects a **Gem** - your score decreases at **1** point.
-When you reach (and touch) **Water** - your scores increase at **3** points.
+Every time a **Bug** collects a **Gem** - your score decreases by **1** point.
+When you reach (and touch) **Water** - your scores increase by **3** points.
 
 ## 2. _Briefly:_ Things that increase scores.
 
@@ -47,7 +47,7 @@ Don't worry! - you may always press "Play again" button and take your revenge;)
 You can restart game at any time - just press 'Play again' button - and 'The show will begin from the start!')
 
 ### 7. Compete!
-Show who wins - you or Bugs?!
+Show who wins - you or Bugs?! Compete!)
 
 ## Idea
 The game was created as part of the Front-End Web Developer Nanodegree Program by Udacity. For more information please visit [https://www.udacity.com](https://www.udacity.com)
