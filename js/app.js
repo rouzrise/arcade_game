@@ -16,19 +16,19 @@ const restartAfterWin = document.getElementById('restartAfterWin');
 const congratMessage = document.querySelector('.congratMessage');
 const scoreCount = document.getElementById('scoreCount');
 
-//gives random numbers between min and max
+//Give random numbers between min and max
 function getRandomArbitary(min, max) {
     return Math.random() * (max - min) + min;
 };
 
-//gives random integer numbers between min and max
+//Give random integer numbers between min and max
 function randomInteger(min, max) {
     var rand = min + Math.random() * (max + 1 - min);
     rand = Math.floor(rand);
     return rand;
 };
 
-//constructor for music
+//////Constructor for music
 function Sound(src) {
     // debugger
     this.sound = document.createElement("audio");
@@ -52,30 +52,41 @@ const myGameover = new Sound("music/gameover.mp3");
 ///TODO - Set generic class "Entity" so that Enemy, Player, 
 //future Gems could inherit from it
 
-///ENEMY
+//ENTITY///////////////////////////////////
 
-//constructor for Enemy
-const Enemy = function(speed, y) {
-    this.sprite = 'images/enemy-bug.png';
-    this.x = -100;
-    this.y = y;
-    this.speed = speed;
-};
+class Entity {
+    //constructor for Entity
+    constructor(x, y, sprite) {
+        this.x = x;
+        this.y = y;
+        this.sprite = sprite;
+    }
+    // Draw the Entity on the screen
+    render() {
+        ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+    }
+}
 
-//Multiply any movement by the dt parameter
-// which will ensure the game runs at the same speed for
-// all computers.
-Enemy.prototype.update = function(dt) {
-    this.x = this.x + this.speed * dt;
+///ENEMY CLASS////////////////////////////////
+
+class Enemy extends Entity {
+    //constructor for Enemy
+    constructor(x, y, sprite, speed) {
+        super(x, y, sprite, speed);
+        this.speed = speed;
+    }
+
+    //Multiply any movement by the dt parameter
+    // which will ensure the game runs at the same speed for
+    // all computers.
+    update(dt) {
+        this.x = this.x + this.speed * dt;
         if(this.x > canvas.width) {
         this.x = getRandomArbitary(-1000, -50);
         }
-};
-
-// Draw the Enemy on the screen
-Enemy.prototype.render = function() {
-    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-};
+    }
+}
+///////////////////////////////////////////////////////////////////////
 
 //Create preliminary array for enemies - constructor for multiple enemies
 const Enemies = function () {
@@ -88,9 +99,9 @@ Enemies.prototype.create = function (num) {
 
     for(let i = 0; i < num; i++) {
         // debugger
-        const speed = getRandomArbitary(50, 250);
+        const speed = getRandomArbitary(50, 300);
         const position = randomInteger(2, 4);
-        this.preliminaryEnemiesArray[allEnemies.length] = new Enemy(speed, yOptions[position]);
+        this.preliminaryEnemiesArray[allEnemies.length] = new Enemy(-100, yOptions[position], 'images/enemy-bug.png', speed);
         allEnemies.push(this.preliminaryEnemiesArray[allEnemies.length]);
     }
 };
@@ -102,77 +113,68 @@ Enemies.prototype.reset = function() {
 
 const enemies = new Enemies();
 
-//// PLAYER
+//// PLAYER CLASS//////////////////////////////////////////
 
-//Constructor for Player
-const Player = function() {
-    this.sprite = 'images/char-cat-girl.png';
-    this.x = 203;
-    this.y =  400;
-};
+class Player extends Entity {
+    //constructor for Player
+    constructor(x, y, sprite) {
+        super(x, y, sprite);
+    }
 
-//Update Player position
-Player.prototype.update = function() {
-    this.xNow = this.x;
-    this.yNow = this.y;
-};
+    //Update Player position
+    update() {
+        this.xNow = this.x;
+        this.yNow = this.y;
+    }
 
-//Return Player to start position
-Player.prototype.reset = function() {
-    this.x = 203;
-    this.y = 400;
-};
+    //Return Player to start position
+    reset() {
+        this.x = 203;
+        this.y = 400;
+    }
 
-//Return Player to the bottom grass to random position
-Player.prototype.returnToStart = function() {
+    //Return Player to the bottom grass to random position
+    returnToStart() {
     const position = randomInteger(0, 4);
     this.x = xOptions[position];
     this.y = 400;
-};
-
-//Move player after keys are pressed and 
-//prevent Player to move out of the canvas
-Player.prototype.handleInput = function (pressedKey) {
-    if (pressedKey === 'left' && this.x >= 101) {
-        this.x -= 101;
     }
-    if (pressedKey === 'up' && this.y >= 68) {
-        this.y -= 83;
+
+    //Move player after keys are pressed and 
+    //prevent Player to move out of the canvas
+    handleInput(pressedKey) {
+        if (pressedKey === 'left' && this.x >= 101) {
+            this.x -= 101;
+        }
+        if (pressedKey === 'up' && this.y >= 68) {
+           this.y -= 83;
+        }
+        if (pressedKey === 'right' && this.x <= 304) {
+            this.x += 101;
+        }
+        if (pressedKey === 'down' && this.y <= 317) {
+            this.y += 83;
+        }
     }
-    if (pressedKey === 'right' && this.x <= 304) {
-        this.x += 101;
+}
+
+const player = new Player(203, 400, 'images/char-cat-girl.png');
+
+//// GEM CLASS//////////////////////////////////////////
+
+class Gem extends Entity {
+    //constructor for Enemy
+    constructor(x, y, sprite) {
+        super(x, y, sprite);
     }
-    if (pressedKey === 'down' && this.y <= 317) {
-        this.y += 83;
+
+    //Update Gem position
+    update() {
+        this.xNow = this.x;
+        this.yNow = this.y;
     }
-};
-
-// Draw the Player on the screen
-Player.prototype.render = function() {
-    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-};
-
-const player = new Player();
-
-//GEMS
-
-//constructor for Gem
-const Gem = function(x, y) {
-    this.x = x;
-    this.y = y;
-    this.sprite = 'images/gem-orange.png';
-};
-
-//Update Gem position
-Gem.prototype.update = function() {
-    this.xNow = this.x;
-    this.yNow = this.y;
-};
-
-// Draw Gem on the screen
-Gem.prototype.render = function() {
-    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-};
+}
+///////////////////////////////////////////////////////////////////////
 
 //Create preliminary array for gems - constructor for multiple gems
 const Gems = function () {
@@ -186,7 +188,7 @@ Gems.prototype.create = function (num) {
     for(let i = 0; i < num; i++) {
         const positionX = randomInteger(0, 4);
         const positionY = randomInteger(2, 4);
-        this.preliminaryGemsArray[allGems.length] = new Gem (xOptions[positionX], yOptionsForGems[positionY]);
+        this.preliminaryGemsArray[allGems.length] = new Gem (xOptions[positionX], yOptionsForGems[positionY], 'images/gem-orange.png');
         allGems.push(this.preliminaryGemsArray[allGems.length]); 
     }
 };
@@ -196,6 +198,8 @@ Gems.prototype.reset = function() {
 };
 
 const gems = new Gems();
+
+///////////////////////////////////////////////////////////////////////
 
 // Listen for key presses and send the keys to
 // Player.handleInput() method.
@@ -210,25 +214,19 @@ document.addEventListener('keydown', function(e) {
     player.handleInput(allowedKeys[e.keyCode]);
 });
 
+///////////////////////////////////////////////////////////////////////
+
 //This is responsible for what happens after the page is loaded
 function start() {
     //Create 6 enemies
     enemies.create(6);
     //Create 2 gems
     gems.create(2);
-
-    //OLD optionate functionality
-    // As soon as 'collected' gems will be moved out of canvas 
-    // this will create random quantity of gems (from 1 to 2) on Canvas through interval
-    // this.gemsInterval = setInterval(function() {
-    //     if (allGems.length === 0) {
-    //         let k = randomInteger(1, 2)
-    //         setTimeout (gems.create(k), 1000);
-    //     } 
-    //   }, 500);
 }
 //Invoke start function
 start();
+
+///////////////////////////////////////////////////////////////////////
 
 //What happens after Gameover (score <= 0)
 function gameover() {
@@ -252,7 +250,7 @@ function toWin() {
     scoreCount.innerHTML = score;
 }
 
-//Restarts game
+//Restart game
 function restart() {
     score = 20;
     player.reset();
@@ -270,7 +268,7 @@ restartButton.addEventListener('click', function(e) {
     restart();
 });
 
-//Event Listener to 'Once more' button (restart button on gameover modal window)
+//Event Listener to 'Once more' button (restart button on 'gameover' modal window)
 restartAfterGameover.addEventListener('click', function(e) {
 //  debugger
     e.preventDefault();
