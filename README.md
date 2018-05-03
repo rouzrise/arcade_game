@@ -1,5 +1,5 @@
 # Classic Arcade Game Clone
-Classic Arcade Game Clone is an online collecting game. You compete with Bugs trying to reach water and collect Gems.
+Classic Arcade Game Clone is an online collecting game. You (Player) compete with Bugs trying to reach water and collect Gems.
 
 
 ### How to play
@@ -18,10 +18,14 @@ When you reach (and touch) water - your scores increase at 3 points.
 Collecting Gem - plus 1 score.
 Touching water - plus 3 scores.
 
+_Note!!!!_ Every time you touch water - you'll be automatically transferred to some random place on grass.
+
 ##### 3. Things that decrease scores.
 
 Hitting Bug - minus 2 scores.
 Bug eating Gem - minus 1 score.
+
+_Note!!!!_ Every time you touch a Bug - you'll be automatically transferred to some random place on grass.
 
 ##### 3. Room for movement.
 
