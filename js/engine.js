@@ -19,10 +19,10 @@ var Engine = (function(global) {
      * set the canvas elements height/width and add it to the DOM.
      */
     var doc = global.document,
-        win = global.window,
-        canvas = doc.createElement('canvas'),
-        ctx = canvas.getContext('2d'),
-        lastTime;
+    win = global.window,
+    canvas = doc.createElement('canvas'),
+    ctx = canvas.getContext('2d'),
+    lastTime;
 
     canvas.width = 505;
     canvas.height = 606;
@@ -39,7 +39,7 @@ var Engine = (function(global) {
          * computer is) - hurray time!
          */
         var now = Date.now(),
-            dt = (now - lastTime) / 1000.0;
+        dt = (now - lastTime) / 1000.0;
 
         /* Call our update/render functions, pass along the time delta to
          * our update function since it may be used for smooth animation.
@@ -86,7 +86,7 @@ var Engine = (function(global) {
         scoreEl.innerHTML = score;
 
         if (score <=10 && score > 0) {
-            debugger
+            // debugger
             scoreEl.classList.add('scoreTextRed');
         } 
         else if (score <= 0) {
@@ -179,10 +179,6 @@ var Engine = (function(global) {
         player.render();
     }
 
- 
-
-
-
     var body = document.querySelector('body');
 
     function checkCollisions() {
@@ -193,31 +189,41 @@ var Engine = (function(global) {
                 player.sprite = 'images/char-cat-girl_inverted.png';
                 
                 setTimeout(function() { 
-                    player.sprite = 'images/char-cat-girl.png';
+                player.sprite = 'images/char-cat-girl.png';
                 body.classList.remove('addRedColor');
                  }, 200);
            ///Check why setTimeout doesn't work as I want - multiple hero
-                 player.returnToStart();
-                 score -=2;
-                 
-                
+                player.returnToStart();
+                score -=2;
             }
         });
 
         allGems.forEach(function(gem) {
             if(player.y === gem.y-50 && player.x > gem.x-50 && player.x < gem.x+50) {
-                allGems.splice(gem, 1);
+                // allGems.splice(gem, 1);
+                gem.x = -1000;
                 score +=1;
                 myGemCollect.play();
+                var positionX = randomInteger(0, 4);
+                var positionY = randomInteger(2, 4);
+                setTimeout (function () {gem.x = xOptions[positionX];
+                gem.y = yOptionsForGems[positionY];
+                }, 3000);
             }
         });
 
         allGems.forEach(function(gem) {
             allEnemies.forEach(function(enemy) {
             if(gem.y-50 === enemy.y && gem.x-50 < enemy.x && gem.x+50 > enemy.x) {
-                allGems.splice(gem, 1);
-                setTimeout (gems.create(1), 5000);
+                // allGems.splice(gem, 1);
+                // setTimeout (gems.create(1), 5000);
+                gem.x = -1000;
                 score -=1;
+                var positionX = randomInteger(0, 4);
+                var positionY = randomInteger(2, 4);
+                setTimeout (function () {gem.x = xOptions[positionX];
+                gem.y = yOptionsForGems[positionY];
+                }, 3000);
             }
         });
         });
@@ -226,8 +232,8 @@ var Engine = (function(global) {
             myWater.play();
             body.classList.add('addYellowColor');
             setTimeout(function() { 
-                body.classList.remove('addYellowColor');
-                 }, 200);
+            body.classList.remove('addYellowColor');
+            }, 200);
             player.returnToStart();
             score +=3;
         }

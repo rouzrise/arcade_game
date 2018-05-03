@@ -7,11 +7,11 @@ url('../fonts/fffforwa-webfont.woff') format('woff');
 
 html {
     margin: 0;
-padding: 0;
-border: 0;
-font-size: 100%;
-line-height: 1.2;
-min-height: 100vh;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    line-height: 1.2;
+    min-height: 100vh;
 }
 body {
     font-family: 'FFFFORWA', Arial, sans-serif;
@@ -19,8 +19,6 @@ body {
     background: linear-gradient(0deg, #4e66d2 0%, #5fc148 100%);
     /* max-width: 535px; */
 }
-
-
 
 h1 {
     font-family: 'FFFFORWA', Arial, sans-serif;
@@ -87,11 +85,6 @@ h1 {
     margin-top: 30px;
     /* width: 80%; */
 }
-#play-again,
-.score {
-    /* display: inline-block;
-    text-align: justify; */
-}
 
 .score {
     margin-right: 5em; 
@@ -126,14 +119,6 @@ h1 {
     background-color:#4F67D3;
     color:  #f794ba;
 }
-/* .container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-direction: column;
-
-
-} */
 
 canvas {
     /* height: 85vh; */

@@ -1,20 +1,22 @@
-var allEnemies = [];
-var score = 20;
-var gameActive = true;
-var scoreEl = document.getElementById('score');
+let allEnemies = [];
+let score = 20;
+const scoreEl = document.getElementById('score');
+//step - 101
+const xOptions = [0, 101, 202, 303, 404];
+//step - 83
+const yOptions = [400, 317, 234, 151, 68, -15];
+const yOptionsForGems = [0, 0, 284, 201, 118, 0];
+
 function getRandomArbitary(min, max) {
     return Math.random() * (max - min) + min;
 };
+
 function randomInteger(min, max) {
     var rand = min + Math.random() * (max + 1 - min);
     rand = Math.floor(rand);
     return rand;
-  }
-//step - 101
-var xOptions = [0, 101, 202, 303, 404];
-//step - 83
-var yOptions = [400, 317, 234, 151, 68, -15];
-var yOptionsForGems = [0, 0, 284, 201, 118, 0];
+};
+
 
 function sound(src) {
     // debugger
@@ -26,28 +28,34 @@ function sound(src) {
     document.body.appendChild(this.sound);
     this.play = function(){
         this.sound.play();
-    }
+    };
     this.stop = function(){
         this.sound.pause();
-    }
-}
+    };
+};
 
-var myMusic = new sound("music/portal.mp3");
+const myMusic = new sound("music/portal.mp3");
+// myMusic.loop = true;
 myMusic.play();
+myMusic.addEventListener('ended', function() {
+    this.currentTime = 0;
+    this.play();
+}, false);
 
-var myGemCollect = new sound("music/gemCollect.mp3");
-var myWin = new sound("music/win.mp3");
-var myWater = new sound ("music/water.mp3");
-var myOuch = new sound("music/ouch.mp3");
-var myGameover = new sound("music/gameover.mp3");
+
+const myGemCollect = new sound("music/gemCollect.mp3");
+const myWin = new sound("music/win.mp3");
+const myWater = new sound ("music/water.mp3");
+const myOuch = new sound("music/ouch.mp3");
+const myGameover = new sound("music/gameover.mp3");
 
 ///TODO - Set generic class "Entity" so that Enemy, Player, future Gems could inherit from it
 
 ///ENEMY
 
-var Enemy = function(speed, y) {
+const Enemy = function(speed, y) {
     this.sprite = 'images/enemy-bug.png';
-    this.x = 0;
+    this.x = -100;
     this.y = y;
     this.speed = speed;
 };
@@ -58,7 +66,7 @@ Enemy.prototype.update = function(dt) {
     // which will ensure the game runs at the same speed for
     // all computers.
     this.x = this.x + this.speed * dt;
-    if(this.x > canvas.width) {
+        if(this.x > canvas.width) {
         this.x = getRandomArbitary(-1000, -50);
         }
 
@@ -69,21 +77,18 @@ Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-var Enemies = function () {
+const Enemies = function () {
     this.preliminaryEnemiesArray = [];
-}
+};
 
 Enemies.prototype.create = function (num) {
 
     for(var i = 0; i < num; i++) {
         // debugger
-        var speed = getRandomArbitary(50, 250);
-       
-        var position = randomInteger(2, 4);
-      
+        const speed = getRandomArbitary(50, 250);
+        const position = randomInteger(2, 4);
         this.preliminaryEnemiesArray[allEnemies.length] = new Enemy(speed, yOptions[position]);
-       allEnemies.push(this.preliminaryEnemiesArray[allEnemies.length]);
-      
+        allEnemies.push(this.preliminaryEnemiesArray[allEnemies.length]);
     }
 }
 
@@ -91,10 +96,10 @@ Enemies.prototype.reset = function() {
     allEnemies = [];
 };
 
-var enemies = new Enemies();
+const enemies = new Enemies();
 
 //// PLAYER
-var Player = function() {
+const Player = function() {
     this.sprite = 'images/char-cat-girl.png';
     this.x = 203;
     this.y =  400;
@@ -119,7 +124,7 @@ Player.prototype.returnToStart = function() {
 
 Player.prototype.handleInput = function (pressedKey) {
     if (pressedKey === 'left' && this.x >= 101) {
-     this.x -= 101;
+        this.x -= 101;
     }
     if (pressedKey === 'up' && this.y >= 68) {
         this.y -= 83;
@@ -128,7 +133,7 @@ Player.prototype.handleInput = function (pressedKey) {
         this.x += 101;
     }
     if (pressedKey === 'down' && this.y <= 317) {
-      this.y += 83;
+        this.y += 83;
     }
 }
 
@@ -136,12 +141,12 @@ Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-var player = new Player();
+const player = new Player();
 
 //create Gems
 
-var allGems = [];
-var Gem = function(x, y) {
+let allGems = [];
+const Gem = function(x, y) {
     this.x = x;
     this.y = y;
     this.sprite = 'images/gem-orange.png';
@@ -156,22 +161,17 @@ Gem.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-var Gems = function () {
+const Gems = function () {
     this.preliminaryGemsArray = [];
 }
 
 Gems.prototype.create = function (num) {
-//    debugger;
-
+//    debugger
     for(var i = 0; i < num; i++) {
-       
-        var positionX = randomInteger(0, 4);
-        var positionY = randomInteger(2, 4);
-      
+        const positionX = randomInteger(0, 4);
+        const positionY = randomInteger(2, 4);
         this.preliminaryGemsArray[allGems.length] = new Gem (xOptions[positionX], yOptionsForGems[positionY]);
-       allGems.push(this.preliminaryGemsArray[allGems.length]);
-      
-        
+        allGems.push(this.preliminaryGemsArray[allGems.length]); 
     }
 }
 
@@ -179,7 +179,7 @@ Gems.prototype.reset = function() {
     allGems = [];
 };
 
-var gems = new Gems();
+const gems = new Gems();
 
 
 // This listens for key presses and sends the keys to your
@@ -196,20 +196,28 @@ document.addEventListener('keydown', function(e) {
 });
 
 
-      function start() {
-        enemies.create(3);
-        this.enemiesInterval = setInterval(function() {
-        let k = randomInteger(2, 5);
-        allEnemies.forEach(function(enemy) {
-            if (enemy.width > canvas.width) { 
-            allEnemies.splice(enemy, 1);
-            }
-        });
-        allEnemies = [];
-        enemies.create(k);
+function start() {
+    enemies.create(6);
+    //     this.enemiesInterval = setInterval(function() {
+    //     let k = randomInteger(3, 6);
+    //     allEnemies.forEach(function(enemy) {
+    //         if (enemy.width > canvas.width) { 
+    //         allEnemies.splice(enemy, 1);
+    //         }
+    //     });
+    //     allEnemies = [];
+    //     enemies.create(k);
+    // }, 5000);
 
-    
-    }, 5000);
+    // this.enemiesInterval = setInterval(function() {
+    //         let k = randomInteger(1, 2);
+    //         // allEnemies.forEach(function(enemy) {
+    //         //     if (enemy.width > canvas.width) { 
+    //         //     allEnemies.splice(enemy, 1);
+    //         //     }
+    //         // });
+    //         enemies.create(k);
+    //     }, 3000);
 
     gems.create(2);
 
@@ -219,23 +227,19 @@ document.addEventListener('keydown', function(e) {
             setTimeout (gems.create(k), 1000);
         } 
       }, 500);
-    }
+}
 
-    start();
+start();
 
-
-
-
-
-var gameOver = document.querySelector('.gameOver');
+const gameOver = document.querySelector('.gameOver');
 const restartButton = document.querySelector('.restartButton');
-var restartAfterGameover = document.getElementById('restartAfterGameover');
-var restartAfterWin = document.getElementById('restartAfterWin');
-var congratMessage = document.querySelector('.congratMessage');
-var scoreCount = document.getElementById('scoreCount');
+const restartAfterGameover = document.getElementById('restartAfterGameover');
+const restartAfterWin = document.getElementById('restartAfterWin');
+const congratMessage = document.querySelector('.congratMessage');
+const scoreCount = document.getElementById('scoreCount');
 
 function gameover() {
-    clearInterval(enemiesInterval);
+    // clearInterval(enemiesInterval);
     clearInterval(gemsInterval);
     player.reset();
     enemies.reset();
@@ -245,7 +249,7 @@ function gameover() {
 }
 
 function toWin() {
-    clearInterval(enemiesInterval);
+    // clearInterval(enemiesInterval);
     clearInterval(gemsInterval);
     player.reset();
     enemies.reset();
@@ -263,7 +267,7 @@ function restart() {
 }
 
 restartButton.addEventListener('click', function(e) {
-    clearInterval(enemiesInterval);
+    // clearInterval(enemiesInterval);
     clearInterval(gemsInterval);
     e.preventDefault();
     // debugger
@@ -279,9 +283,9 @@ restartAfterGameover.addEventListener('click', function(e) {
 
 restartAfterWin.addEventListener('click', function(e) {
     //  debugger
-        e.preventDefault();
-        congratMessage.classList.remove('show');
-        restart();
+    e.preventDefault();
+    congratMessage.classList.remove('show');
+    restart();
     });
 
 
