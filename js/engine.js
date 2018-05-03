@@ -214,8 +214,6 @@ const Engine = (function(global) {
                 myGemCollect.play();
 
                 // 'Return' gem out of the canvas 
-                const positionX = randomInteger(0, 4);
-                const positionY = randomInteger(2, 4);
                 setTimeout (function () {gem.x = xOptions[positionX];
                 gem.y = yOptionsForGems[positionY];
                 }, 3000);
@@ -230,8 +228,6 @@ const Engine = (function(global) {
                 // setTimeout (gems.create(1), 5000);
                 gem.x = -1000;
                 score -=1;
-                const positionX = randomInteger(0, 4);
-                const positionY = randomInteger(2, 4);
                 setTimeout (function () {gem.x = xOptions[positionX];
                 gem.y = yOptionsForGems[positionY];
                 }, 3000);

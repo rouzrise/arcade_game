@@ -8,6 +8,8 @@ const xOptions = [0, 101, 202, 303, 404];
 //step - 83
 const yOptions = [400, 317, 234, 151, 68, -15];
 const yOptionsForGems = [0, 0, 284, 201, 118, 0];
+const positionX = randomInteger(0, 4);
+const positionY = randomInteger(2, 4);
 
 const gameOver = document.querySelector('.gameOver');
 const restartButton = document.querySelector('.restartButton');
@@ -33,9 +35,9 @@ function Sound(src) {
     // debugger
     this.sound = document.createElement("audio");
     this.sound.src = src;
-    this.sound.setAttribute("preload", "auto");
-    this.sound.setAttribute("controls", "none");
-    this.sound.style.display = "none";
+    // this.sound.setAttribute("preload", "auto");
+    // this.sound.setAttribute("controls", "none");
+    // this.sound.style.display = "none";
     document.body.appendChild(this.sound);
     this.play = function(){
         this.sound.play();
@@ -186,8 +188,6 @@ const Gems = function () {
 Gems.prototype.create = function (num) {
 //    debugger
     for(let i = 0; i < num; i++) {
-        const positionX = randomInteger(0, 4);
-        const positionY = randomInteger(2, 4);
         this.preliminaryGemsArray[allGems.length] = new Gem (xOptions[positionX], yOptionsForGems[positionY], 'images/gem-orange.png');
         allGems.push(this.preliminaryGemsArray[allGems.length]); 
     }
@@ -282,7 +282,7 @@ restartAfterWin.addEventListener('click', function(e) {
     e.preventDefault();
     congratMessage.classList.remove('show');
     restart();
-    });
+});
 
 
    
