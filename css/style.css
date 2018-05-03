@@ -1,5 +1,4 @@
-
- @font-face {
+@font-face {
 font-family: 'FFFFORWA';
 src: url('../fonts/fffforwa-webfont.woff2') format('woff2'),
 url('../fonts/fffforwa-webfont.woff') format('woff');
@@ -112,7 +111,7 @@ h1 {
     display: inline-block;
     font-size: 10px;
     cursor: pointer;
-    float: left;
+    /* float: left; */
     text-transform: uppercase;
 }
 

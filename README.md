@@ -1,6 +1,9 @@
 # Classic Arcade Game Clone
 Classic Arcade Game Clone is an online collecting game. You (**Player**) compete with **Bugs** trying to reach **Water** and collect **Gems**.
 
+### How to start
+
+To start playing - open index.html in your browser.
 
 ### How to play
 
