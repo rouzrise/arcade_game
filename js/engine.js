@@ -199,8 +199,9 @@ const Engine = (function(global) {
                 setTimeout(function() { 
                 player.sprite = 'images/char-cat-girl.png';
                 body.classList.remove('addRedColor');
-                 }, 200);
                 player.returnToStart();
+                 }, 200);
+                
                 score -=2;
             }
         });
