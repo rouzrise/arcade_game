@@ -35,10 +35,7 @@ function Sound(src) {
     // debugger
     this.sound = document.createElement("audio");
     this.sound.src = src;
-    // this.sound.setAttribute("preload", "auto");
-    // this.sound.setAttribute("controls", "none");
-    // this.sound.style.display = "none";
-    document.body.appendChild(this.sound);
+    // document.body.appendChild(this.sound);
     this.play = function(){
         this.sound.play();
     };
@@ -98,7 +95,6 @@ const Enemies = function () {
 //Update allEnemies array by transferring enemies from preliminary array 
 //with random speed and Y-position on the pavement
 Enemies.prototype.create = function (num) {
-
     for(let i = 0; i < num; i++) {
         // debugger
         const speed = getRandomArbitary(50, 300);
